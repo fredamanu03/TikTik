@@ -1,4 +1,5 @@
 export const allPostsQuery = () => {
+  //fetching all posts in desc order by createdA and specific fields of the post
   const query = `*[_type == "post"] | order(_createdAt desc){
     _id,
      caption,

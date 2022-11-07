@@ -1,7 +1,37 @@
 import type { NextPage } from "next";
 
-const Home: NextPage = () => {
-  return <h1 className="text-3xl font-bold underline">Hello World!</h1>;
+import { Video } from "../types";
+import axios from "axios";
+import NoResults from "../components/NoResults";
+import VideoCard from "../components/VideoCard";
+
+interface IProps {
+  videos: Video[];
+}
+
+const Home = ({ videos }: IProps) => {
+  console.log(videos);
+
+  return (
+    <div className="flex flex-col gap-10 videos h-full">
+      {videos.length ? (
+        videos.map((video: Video) => <VideoCard key={video._id} post={video} />)
+      ) : (
+        <NoResults text={"No Videos"} />
+      )}
+    </div>
+  );
+};
+
+//only if you need to render a page whose data must be fetched at request time
+export const getServerSideProps = async () => {
+  const { data } = await axios.get("http://localhost:3000/api/posts");
+
+  return {
+    props: {
+      videos: data,
+    },
+  };
 };
 
 export default Home;
