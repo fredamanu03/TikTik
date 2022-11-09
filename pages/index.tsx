@@ -4,6 +4,7 @@ import { Video } from "../types";
 import axios from "axios";
 import NoResults from "../components/NoResults";
 import VideoCard from "../components/VideoCard";
+import { BASE_URL } from "../utils";
 
 interface IProps {
   videos: Video[];
@@ -23,7 +24,7 @@ const Home = ({ videos }: IProps) => {
 
 //only if you need to render a page whose data must be fetched at request time
 export const getServerSideProps = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/posts");
+  const { data } = await axios.get(`${BASE_URL}/api/posts`);
 
   return {
     props: {

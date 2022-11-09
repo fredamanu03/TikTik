@@ -12,7 +12,7 @@ interface IProps {
   post: Video;
 }
 
-const VideoCard = ({ post: { caption, postedBy, video } }: IProps) => {
+const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
@@ -70,7 +70,7 @@ const VideoCard = ({ post: { caption, postedBy, video } }: IProps) => {
             setIsHover(false);
           }}
         >
-          <Link href="/">
+          <Link href={`/detail/${_id}`}>
             <video
               ref={videoRef}
               loop
