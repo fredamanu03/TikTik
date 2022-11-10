@@ -26,6 +26,13 @@ const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
       setIsPlaying(true);
     }
   };
+
+  useEffect(() => {
+    if (videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted]);
+
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
       <div>
@@ -82,20 +89,20 @@ const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
             <div className="absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3">
               {isPlaying ? (
                 <button onClick={onVideoPress}>
-                  <BsFillPauseFill />
+                  <BsFillPauseFill className="text-black text-2xl" />
                 </button>
               ) : (
                 <button onClick={onVideoPress}>
-                  <BsFillPlayFill />
+                  <BsFillPlayFill className="text-black text-2xl" />
                 </button>
               )}
               {isVideoMuted ? (
                 <button onClick={() => setIsVideoMuted(false)}>
-                  <HiVolumeUp />
+                  <HiVolumeUp className="text-black text-2xl" />
                 </button>
               ) : (
                 <button onClick={() => setIsVideoMuted(true)}>
-                  <HiVolumeOff />
+                  <HiVolumeOff className="text-black text-2xl" />
                 </button>
               )}
             </div>
