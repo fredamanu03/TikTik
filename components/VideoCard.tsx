@@ -10,13 +10,18 @@ import { Video } from "../types";
 
 interface IProps {
   post: Video;
+  fromWhere: string;
 }
 
-const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
+const VideoCard = ({
+  post: { caption, postedBy, video, _id },
+  fromWhere,
+}: IProps) => {
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hiddenAccount = fromWhere === "userpage" ? "hidden lg:block" : "block";
   const onVideoPress = () => {
     if (isPlaying) {
       videoRef?.current?.pause();
@@ -35,10 +40,10 @@ const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
 
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
-      <div>
+      <div className={`${hiddenAccount}`}>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="md:w-16 md:h-16 w-10 h-10">
-            <Link href="/">
+            <Link href={`/profile/${postedBy._id}`}>
               <>
                 <Image
                   src={postedBy.image}
@@ -52,7 +57,7 @@ const VideoCard = ({ post: { caption, postedBy, video, _id } }: IProps) => {
             </Link>
           </div>
           <div>
-            <Link href="/">
+            <Link href={`/profile/${postedBy._id}`}>
               <div className="flex items-center gap-2">
                 <p className="flex gap-2 items-center md:text-md font-bold text-primary">
                   {postedBy.userName}{" "}
